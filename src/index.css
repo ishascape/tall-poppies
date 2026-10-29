@@ -1,0 +1,106 @@
+@import '@fontsource-variable/fraunces/full.css';
+@import '@fontsource-variable/fraunces/full-italic.css';
+@import '@fontsource-variable/instrument-sans/index.css';
+@import 'tailwindcss';
+
+@theme {
+  --font-display: 'Fraunces Variable', 'Iowan Old Style', Georgia, serif;
+  --font-sans: 'Instrument Sans Variable', ui-sans-serif, system-ui, sans-serif;
+
+  --color-ivory: #f6efe2;
+  --color-paper: #fbf7ee;
+  --color-ink: #2a241e;
+  --color-ink-soft: #5c5247;
+  --color-ink-faint: #8d8173;
+  --color-poppy: #c7352b;
+  --color-poppy-deep: #8f1f1c;
+  --color-coral: #e8775c;
+  --color-green: #3e6a3a;
+  --color-green-deep: #2c4f2b;
+  --color-sage: #a3b48e;
+  --color-blush: #ebc7ba;
+  --color-gold: #c9a04a;
+  --color-soil: #6e4b36;
+  --color-line: #e3d7c3;
+
+  --ease-grow: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    background: var(--color-ivory);
+    color: var(--color-ink);
+    -webkit-tap-highlight-color: transparent;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    font-family: var(--font-sans);
+    background: var(--color-ivory);
+    -webkit-font-smoothing: antialiased;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-poppy);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  ::selection {
+    background: var(--color-blush);
+  }
+}
+
+@layer components {
+  .display {
+    font-family: var(--font-display);
+    font-variation-settings: 'SOFT' 100, 'WONK' 1;
+    letter-spacing: -0.015em;
+  }
+  .eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--color-ink-faint);
+  }
+  /* Paper grain over everything, quiet and warm. */
+  .paper-grain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 60;
+    opacity: 0.32;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.42  0 0 0 0 0.33  0 0 0 0 0.22  0 0 0 0.28 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .garden-patch {
+    container-type: size;
+  }
+  .flower-sway {
+    transform-origin: 50% 100%;
+    animation: sway var(--sway-duration, 6s) ease-in-out var(--sway-delay, 0s) infinite alternate;
+  }
+  .flower-hit * {
+    pointer-events: all;
+  }
+}
+
+@keyframes sway {
+  from {
+    transform: rotate(calc(var(--sway-amount, 2deg) * -1));
+  }
+  to {
+    transform: rotate(var(--sway-amount, 2deg));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flower-sway {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
+}
