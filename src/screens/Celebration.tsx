@@ -7,7 +7,7 @@ import { Seed } from '../components/art/Seed';
 import { Soil } from '../components/art/Soil';
 import { CELEBRATION, timelineTotal } from '../lib/motion';
 import { hashString } from '../lib/variation';
-import { GOLD } from '../components/art/palette';
+import { INK, PINK, WHITE } from '../components/art/palette';
 
 const LINES = ['Look what you grew.', 'Another one blooms.', 'That deserves to bloom.', 'Look at that grow.', 'Something lovely, planted.'];
 
@@ -65,7 +65,7 @@ function CelebrationOverlay({ data }: { data: CelebrationData }) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-[70] flex flex-col items-center justify-center overflow-hidden bg-ivory/95 px-6 backdrop-blur-sm"
+      className="halftone-pink fixed inset-0 z-[70] flex flex-col items-center justify-center overflow-hidden bg-ivory px-6"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, transition: { duration: 0.45 } }}
@@ -82,7 +82,7 @@ function CelebrationOverlay({ data }: { data: CelebrationData }) {
           e.stopPropagation();
           close();
         }}
-        className="absolute right-4 top-[max(1rem,env(safe-area-inset-top))] rounded-full px-4 py-2 text-sm font-semibold text-ink-soft hover:bg-ink/5 hover:text-ink"
+        className="absolute right-4 top-[max(1rem,env(safe-area-inset-top))] rounded-full border-2 border-ink bg-paper px-4 py-2 text-sm font-bold text-ink shadow-[2px_2px_0_var(--color-ink)] hover:bg-mint"
       >
         Skip
       </button>
@@ -91,7 +91,7 @@ function CelebrationOverlay({ data }: { data: CelebrationData }) {
         {/* Warm light that swells as the flower opens. */}
         <motion.div
           className="absolute bottom-[18%] left-1/2 aspect-square w-[120%] -translate-x-1/2 rounded-full"
-          style={{ background: `radial-gradient(circle, ${GOLD}44 0%, ${GOLD}14 45%, transparent 70%)` }}
+          style={{ background: `radial-gradient(${PINK}99 1.8px, transparent 2.3px) 0 0 / 11px 11px, ${WHITE}`, border: `3px solid ${INK}` }}
           initial={{ opacity: 0, scale: 0.6 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: t.grow + t.open, delay: reduced ? 0 : growAt, ease: [0.22, 1, 0.36, 1] }}
@@ -141,17 +141,17 @@ function CelebrationOverlay({ data }: { data: CelebrationData }) {
         transition={{ duration: 0.6, delay: textAt, ease: [0.22, 1, 0.36, 1] }}
         aria-live="assertive"
       >
-        <h2 className="display text-[2.4rem] leading-[1.05] text-ink sm:text-5xl">{line}</h2>
-        <p className="display mt-3 text-lg italic leading-snug text-ink-soft">“{data.win.text}”</p>
+        <h2 className="display pop-headline text-[1.9rem] leading-[1.1] text-ink sm:text-4xl">{line}</h2>
+        <p className="mt-3 text-lg font-semibold italic leading-snug text-ink-soft">“{data.win.text}”</p>
         <AnimatePresence>
           {stage && (
             <motion.p
-              className="mt-5 inline-flex items-center gap-2 rounded-full bg-paper px-4 py-2 text-sm font-semibold text-poppy-deep ring-1 ring-gold/40"
+              className="mt-5 inline-flex items-center gap-2 rounded-full border-2 border-ink bg-paper px-4 py-2 text-sm font-bold text-poppy-deep shadow-[3px_3px_0_var(--color-ink)]"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: textAt + 0.35, type: 'spring', stiffness: 260, damping: 18 }}
             >
-              <span className="h-1.5 w-1.5 rounded-full bg-gold" aria-hidden="true" />
+              <span className="h-2 w-2 rounded-full bg-gold ring-[1.5px] ring-ink" aria-hidden="true" />
               {STAGE_LINES[stage]}
             </motion.p>
           )}

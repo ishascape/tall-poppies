@@ -1,27 +1,31 @@
-@import '@fontsource-variable/fraunces/full.css';
-@import '@fontsource-variable/fraunces/full-italic.css';
+@import '@fontsource/chango/400.css';
 @import '@fontsource-variable/instrument-sans/index.css';
 @import 'tailwindcss';
 
 @theme {
-  --font-display: 'Fraunces Variable', 'Iowan Old Style', Georgia, serif;
+  --font-display: 'Chango', 'Arial Black', Impact, system-ui, sans-serif;
   --font-sans: 'Instrument Sans Variable', ui-sans-serif, system-ui, sans-serif;
 
-  --color-ivory: #f6efe2;
-  --color-paper: #fbf7ee;
-  --color-ink: #2a241e;
-  --color-ink-soft: #5c5247;
-  --color-ink-faint: #8d8173;
-  --color-poppy: #c7352b;
-  --color-poppy-deep: #8f1f1c;
-  --color-coral: #e8775c;
-  --color-green: #3e6a3a;
-  --color-green-deep: #2c4f2b;
-  --color-sage: #a3b48e;
-  --color-blush: #ebc7ba;
-  --color-gold: #c9a04a;
-  --color-soil: #6e4b36;
-  --color-line: #e3d7c3;
+  /* Japanese pop art: flat saturated colour, inky outlines, graphic pattern. */
+  --color-ivory: #ffd93b; /* page: sunshine yellow */
+  --color-paper: #ffffff; /* cards and sheets */
+  --color-ink: #14101f;
+  --color-ink-soft: #2b2d8e; /* indigo (ai-iro) */
+  --color-ink-faint: #a3106e; /* deep magenta */
+  --color-poppy: #d90429;
+  --color-poppy-deep: #a10021;
+  --color-coral: #ff4f9a;
+  --color-green: #00a651;
+  --color-green-deep: #006b3c;
+  --color-sage: #7ee05a;
+  --color-blush: #ffb3d9;
+  --color-gold: #ffb800;
+  --color-soil: #2e3192;
+  --color-line: #14101f;
+  --color-sky: #4cc3ff;
+  --color-pink: #ff4f9a;
+  --color-mint: #2ee6c5;
+  --color-indigo: #2e3192;
 
   --ease-grow: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -37,41 +41,62 @@
     margin: 0;
     min-height: 100dvh;
     font-family: var(--font-sans);
-    background: var(--color-ivory);
+    background-color: var(--color-ivory);
+    /* Halftone dots, the print texture of pop art. */
+    background-image: radial-gradient(rgb(255 79 154 / 0.32) 1.5px, transparent 1.9px);
+    background-size: 16px 16px;
+    background-attachment: fixed;
     -webkit-font-smoothing: antialiased;
   }
   :focus-visible {
-    outline: 2px solid var(--color-poppy);
+    outline: 3px solid var(--color-ink);
     outline-offset: 3px;
-    border-radius: 6px;
+    border-radius: 8px;
   }
   ::selection {
-    background: var(--color-blush);
+    background: var(--color-pink);
+    color: #fff;
   }
 }
 
 @layer components {
+  /* Chango ships one weight. "Regular" is the face as drawn; "bold" adds an
+     ink stroke in the text colour for a heavier, poster-weight headline. */
   .display {
     font-family: var(--font-display);
-    font-variation-settings: 'SOFT' 100, 'WONK' 1;
-    letter-spacing: -0.015em;
+    font-weight: 400;
+    font-style: normal;
+    font-synthesis: none;
+    letter-spacing: 0.005em;
   }
-  .eyebrow {
-    font-size: 0.7rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    font-weight: 600;
-    color: var(--color-ink-faint);
+  .display-bold {
+    -webkit-text-stroke: 0.035em currentColor;
+    paint-order: stroke fill;
   }
-  /* Paper grain over everything, quiet and warm. */
-  .paper-grain {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 60;
-    opacity: 0.32;
-    mix-blend-mode: multiply;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.42  0 0 0 0 0.33  0 0 0 0 0.22  0 0 0 0.28 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  /* Big headlines get an offset print shadow, like a misregistered screenprint. */
+  .pop-headline {
+    -webkit-text-stroke: 0.035em currentColor;
+    paint-order: stroke fill;
+    text-shadow: 0.06em 0.06em 0 var(--color-pink);
+  }
+  /* Inked panel: thick outline and a hard, flat drop shadow. */
+  .pop-card {
+    background: var(--color-paper);
+    border: 3px solid var(--color-ink);
+    box-shadow: 5px 5px 0 var(--color-ink);
+  }
+  .pop-shadow {
+    box-shadow: 4px 4px 0 var(--color-ink);
+  }
+  .pop-shadow-sm {
+    box-shadow: 3px 3px 0 var(--color-ink);
+  }
+  .pop-outline {
+    border: 2.5px solid var(--color-ink);
+  }
+  .halftone-pink {
+    background-image: radial-gradient(rgb(255 79 154 / 0.45) 1.6px, transparent 2px);
+    background-size: 12px 12px;
   }
   .garden-patch {
     container-type: size;

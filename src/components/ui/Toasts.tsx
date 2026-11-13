@@ -14,7 +14,7 @@ export function Toasts() {
             initial={{ opacity: 0, y: 16, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8 }}
-            className="pointer-events-auto flex max-w-md items-center gap-3 rounded-full bg-ink py-2 pl-5 pr-2 text-sm text-paper shadow-lg"
+            className="pointer-events-auto flex max-w-md items-center gap-3 rounded-full border-2 border-ink bg-ink py-2 pl-5 pr-2 text-sm font-medium text-paper shadow-[4px_4px_0_var(--color-pink)]"
           >
             <span>{t.message}</span>
             {t.action && (
@@ -29,7 +29,7 @@ export function Toasts() {
                 {t.action.label}
               </button>
             )}
-            <button type="button" onClick={() => dismissToast(t.id)} className="grid h-8 w-8 place-items-center rounded-full text-paper/70 hover:text-paper" aria-label="Dismiss">
+            <button type="button" onClick={() => dismissToast(t.id)} className="grid h-8 w-8 place-items-center rounded-full text-paper/80 hover:text-paper" aria-label="Dismiss">
               <X size={16} />
             </button>
           </motion.div>

@@ -69,7 +69,13 @@ function seededWins(n, { daysBack = n * 2 } = {}) {
   });
 }
 
-const stageText = (page) => page.locator('main p.eyebrow').first().textContent();
+// Stage and count, read from the signature poppy's accessible name, e.g. "Sprout · 1 win".
+const stageText = async (page) => {
+  const label = (await page.getByRole('button', { name: /Your signature poppy/ }).getAttribute('aria-label')) ?? '';
+  const m = label.match(/poppy, (.+?)\. (\d+) (wins?) planted/);
+  if (!m) return label;
+  return `${m[1][0].toUpperCase()}${m[1].slice(1)} · ${m[2]} ${m[3]}`;
+};
 
 /** Hash navigation plus a beat for the screen transition. */
 async function go(page, hash) {

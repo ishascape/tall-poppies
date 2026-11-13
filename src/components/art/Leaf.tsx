@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { GREEN, GREEN_DEEP, INK, PIVOT, shade } from './palette';
+import { GREEN, GREEN_DEEP, INK, KEYLINE, PIVOT, shade } from './palette';
 
 /** Deeply lobed poppy leaf pointing along +x, base at the origin. Drawn at length 100. */
 const LOBED =
@@ -50,12 +50,11 @@ export function Leaf({
             d={kind === 'lobed' ? LOBED : COTYLEDON}
             fill={color}
             stroke={outline ? INK : 'none'}
-            strokeOpacity={0.55}
-            strokeWidth={0.9}
+            strokeWidth={KEYLINE}
             strokeLinejoin="round"
             vectorEffect="non-scaling-stroke"
           />
-          <path d={RIB} fill="none" stroke={shade(GREEN_DEEP, -0.1)} strokeWidth={0.8} opacity={0.5} vectorEffect="non-scaling-stroke" />
+          <path d={RIB} fill="none" stroke={shade(GREEN_DEEP, -0.1)} strokeWidth={1} opacity={0.7} vectorEffect="non-scaling-stroke" />
         </g>
       </motion.g>
     </motion.g>

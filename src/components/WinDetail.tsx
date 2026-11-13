@@ -23,7 +23,7 @@ export function WinDetail({ win, onClose, context }: { win: Win | null; onClose:
               <GardenFlower variant={win.flowerVariant} headOnly className="h-16 w-16 shrink-0" />
               <div className="min-w-0 pt-1">
                 <CategoryTag category={win.category} />
-                <p className="display mt-1 text-[1.45rem] leading-snug text-ink [overflow-wrap:anywhere]">{win.text}</p>
+                <p className="mt-1 text-[1.35rem] font-semibold leading-snug text-ink [overflow-wrap:anywhere]">{win.text}</p>
               </div>
             </div>
             <div className="flex flex-wrap gap-2 border-t border-line pt-4">

@@ -8,7 +8,7 @@ import { PoppyHead } from './PoppyHead';
 import { Seed } from './Seed';
 import { Soil } from './Soil';
 import { Stem, pointOn, type StemCurve } from './Stem';
-import { CORAL, GOLD, GREEN, INK, PIVOT, POPPY, SAGE, shade } from './palette';
+import { CORAL, GOLD, GREEN, INK, PINK, PIVOT, POPPY, SAGE, shade } from './palette';
 
 const BASE = { x: 160, y: 414 };
 
@@ -135,36 +135,27 @@ export function SignaturePoppy({ count, className, ambient = true, title }: Sign
       aria-label={title ?? `Your signature poppy: ${growth.stage.name.toLowerCase()}`}
     >
       <defs>
-        <radialGradient id="sp-halo">
-          <stop offset="0%" stopColor={GOLD} stopOpacity={0.32} />
-          <stop offset="70%" stopColor={GOLD} stopOpacity={0.12} />
-          <stop offset="100%" stopColor={GOLD} stopOpacity={0} />
-        </radialGradient>
+        <pattern id="sp-dots" width="7" height="7" patternUnits="userSpaceOnUse">
+          <circle cx="3.5" cy="3.5" r="1.3" fill={PINK} opacity={0.55} />
+        </pattern>
       </defs>
 
-      {/* Golden halo: the mark of a signature poppy. */}
+      {/* Pop sun disc behind the poppy: the mark of a signature poppy. */}
       <motion.g initial={false} animate={{ x: art.halo.x, y: art.halo.y }} transition={{ duration: grew ? 1.1 : 0, ease: [0.22, 1, 0.36, 1] }}>
-        <motion.circle initial={false} animate={{ r: art.halo.r * 1.25 }} transition={{ duration: dur }} fill="url(#sp-halo)" />
         <motion.circle
           initial={false}
-          animate={{ r: art.halo.r }}
-          transition={{ duration: dur }}
-          fill="none"
-          stroke={GOLD}
-          strokeOpacity={0.45}
-          strokeWidth={1}
-        />
-        <motion.circle
-          initial={false}
-          animate={{ r: art.halo.r + 9, rotate: sway ? 360 : 0 }}
+          animate={{ r: art.halo.r + 10, rotate: sway ? 360 : 0 }}
           transition={{ r: { duration: dur }, rotate: { duration: 160, repeat: Infinity, ease: 'linear' } }}
           fill="none"
-          stroke={GOLD}
-          strokeOpacity={0.5}
-          strokeWidth={1.4}
-          strokeDasharray="1 7"
+          stroke={INK}
+          strokeWidth={2.2}
+          strokeDasharray="2 8"
           strokeLinecap="round"
+          vectorEffect="non-scaling-stroke"
         />
+        <motion.circle initial={false} animate={{ r: art.halo.r }} transition={{ duration: dur }} fill="#FFFFFF" stroke={INK} strokeWidth={2.6} vectorEffect="non-scaling-stroke" />
+        <motion.circle initial={false} animate={{ r: art.halo.r }} transition={{ duration: dur }} fill="url(#sp-dots)" />
+        <motion.circle initial={false} animate={{ r: art.halo.r * 0.72 }} transition={{ duration: dur }} fill="none" stroke={PINK} strokeWidth={2} vectorEffect="non-scaling-stroke" />
       </motion.g>
 
       {growth.stage.id === 'mature' && flourishes.has('grasses') && <Grasses animateIn={grew} />}
@@ -329,7 +320,7 @@ function SeedHeads({ animateIn, sway }: { animateIn: boolean; sway: boolean }) {
           <path d={`M${h.x},${h.y} Q${h.x - 4},${(h.y + h.ty) / 2} ${h.tx},${h.ty}`} fill="none" stroke={shade(GOLD, -0.25)} strokeWidth={1.6} />
           <g transform={`translate(${h.tx} ${h.ty})`}>
             <motion.g style={PIVOT} animate={sway ? { rotate: [-4, 4] } : { rotate: 0 }} transition={sway ? swayTransition(5 + i, i) : undefined}>
-              <ellipse cx={0} cy={-8} rx={6.5} ry={8.5} fill={GOLD} stroke={INK} strokeOpacity={0.5} strokeWidth={0.9} />
+              <ellipse cx={0} cy={-8} rx={6.5} ry={8.5} fill={GOLD} stroke={INK} strokeWidth={1.4} />
               <path d="M-6,-15 L6,-15 L4,-18 L0,-16 L-4,-18 Z" fill={shade(GOLD, -0.3)} />
               {[-3, 0, 3].map((dx) => (
                 <line key={dx} x1={dx} y1={-14} x2={dx * 0.6} y2={-1} stroke={shade(GOLD, -0.3)} strokeWidth={0.6} />
@@ -350,8 +341,8 @@ function Butterfly({ sway }: { sway: boolean }) {
       transition={sway ? { duration: 12, repeat: Infinity, ease: 'easeInOut' } : undefined}
     >
       <motion.g animate={sway ? { scaleX: [1, 0.35, 1] } : undefined} transition={sway ? { duration: 0.5, repeat: Infinity } : undefined}>
-        <path d="M0,0 C-10,-14 -18,-6 -14,2 C-12,6 -4,4 0,0Z" fill={CORAL} stroke={INK} strokeOpacity={0.6} strokeWidth={0.8} />
-        <path d="M0,0 C10,-14 18,-6 14,2 C12,6 4,4 0,0Z" fill={CORAL} stroke={INK} strokeOpacity={0.6} strokeWidth={0.8} />
+        <path d="M0,0 C-10,-14 -18,-6 -14,2 C-12,6 -4,4 0,0Z" fill={CORAL} stroke={INK} strokeWidth={1.2} />
+        <path d="M0,0 C10,-14 18,-6 14,2 C12,6 4,4 0,0Z" fill={CORAL} stroke={INK} strokeWidth={1.2} />
         <path d="M0,0 C-6,6 -10,10 -6,12 C-3,12 -1,6 0,0Z" fill={GOLD} />
         <path d="M0,0 C6,6 10,10 6,12 C3,12 1,6 0,0Z" fill={GOLD} />
       </motion.g>
