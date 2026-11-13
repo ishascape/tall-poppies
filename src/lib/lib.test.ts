@@ -7,6 +7,8 @@ import { layoutGarden, PATCH_CAPACITY, patchIndexOf, SLOT_ORDER } from './layout
 import { pickReflection } from './reflection';
 import { CELEBRATION, timelineTotal } from './motion';
 import type { Win } from './types';
+import { randomSampleDrafts, SAMPLE_WINS } from './samples';
+import { isISODate } from './dates';
 
 const day = (offset: number) => {
   const d = new Date(2026, 9, 29);
@@ -181,5 +183,18 @@ describe('motion', () => {
     expect(first).toBeGreaterThanOrEqual(2);
     expect(first).toBeLessThanOrEqual(3);
     expect(timelineTotal(CELEBRATION.later)).toBeLessThan(first);
+  });
+});
+
+describe('sample wins', () => {
+  it('picks 10 distinct wins dated within the last 60 days', () => {
+    const drafts = randomSampleDrafts(10, '2026-11-13');
+    expect(drafts).toHaveLength(10);
+    expect(new Set(drafts.map((d) => d.text)).size).toBe(10);
+    for (const d of drafts) {
+      expect(isISODate(d.date)).toBe(true);
+      expect(d.date <= '2026-11-13' && d.date > '2026-09-13').toBe(true);
+      expect(SAMPLE_WINS.some((s) => s.text === d.text)).toBe(true);
+    }
   });
 });

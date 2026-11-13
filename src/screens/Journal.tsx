@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { Download, Flower2, Pencil, Sprout, Trash2 } from 'lucide-react';
+import { Download, Flower2, Pencil, Shuffle, Sprout, Trash2 } from 'lucide-react';
 import { useGarden } from '../state/GardenProvider';
 import { navigate, useRoute } from '../state/router';
 import { CATEGORY_LABELS, WIN_CATEGORIES, type Win, type WinCategory } from '../lib/types';
@@ -11,7 +11,7 @@ import { Button } from '../components/ui/Button';
 import { GardenFlower } from '../components/art/GardenFlower';
 
 export function Journal() {
-  const { wins, openEdit, deleteWin, openPlant } = useGarden();
+  const { wins, openEdit, deleteWin, openPlant, plantSamples } = useGarden();
   const { params } = useRoute();
   const filter = (WIN_CATEGORIES as readonly string[]).includes(params.get('category') ?? '') ? (params.get('category') as WinCategory) : undefined;
   const focusId = params.get('win');
@@ -78,6 +78,11 @@ export function Journal() {
           <Button className="mt-6" icon={<Sprout size={17} />} onClick={openPlant}>
             Plant a win
           </Button>
+          <div>
+            <Button className="mt-3" variant="ghost" size="sm" icon={<Shuffle size={15} />} onClick={() => plantSamples(10)}>
+              Or try 10 sample wins
+            </Button>
+          </div>
         </div>
       ) : visible.length === 0 ? (
         <p className="py-10 text-center text-ink-soft">No {filter ? CATEGORY_LABELS[filter].toLowerCase() : ''} wins yet.</p>
@@ -135,6 +140,9 @@ export function Journal() {
           <p className="text-sm text-ink-soft">Your wins live only on this device.</p>
           <Button variant="ghost" size="sm" icon={<Download size={15} />} onClick={exportWins}>
             Download a copy
+          </Button>
+          <Button variant="ghost" size="sm" icon={<Shuffle size={15} />} onClick={() => plantSamples(10)}>
+            Add 10 sample wins
           </Button>
         </footer>
       )}
