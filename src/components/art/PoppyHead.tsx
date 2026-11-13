@@ -1,5 +1,5 @@
 import { motion, type Transition } from 'motion/react';
-import { INK, GOLD, shade, PIVOT } from './palette';
+import { INK, GOLD, KEYLINE, KEYLINE_BOLD, popColor, shade, PIVOT } from './palette';
 
 /**
  * A poppy in three-quarter view. Local origin is where the stem meets the
@@ -22,6 +22,8 @@ const FRONT_PETALS = [
 ];
 
 const BLOTCH = 'M1,-2 C-6,-3 -13,-8 -13,-15 C-10,-19 -4,-19 2,-14 Z';
+/** Pop art highlight: a crisp white sliver on each front petal. */
+const SHINE = 'M-10,-33 C-17,-34 -22,-31 -24,-26';
 const VEINS = ['M0,-2 Q-10,-14 -22,-30', 'M0,-2 Q-4,-18 -7,-36', 'M0,-2 Q-16,-8 -30,-18'];
 
 export type PoppyHeadProps = {
@@ -37,7 +39,7 @@ export type PoppyHeadProps = {
 };
 
 export function PoppyHead({
-  color,
+  color: savedColor,
   petalVariant = 0,
   signature = false,
   animateOpen = false,
@@ -46,12 +48,12 @@ export function PoppyHead({
   outline = true,
 }: PoppyHeadProps) {
   const v = Math.max(0, Math.min(3, petalVariant));
+  const color = popColor(savedColor);
   const back = shade(color, -0.18);
   const deep = shade(color, -0.42);
-  const pale = color.toLowerCase() === '#f2e4d3';
-  const stroke = outline ? (pale ? shade(color, -0.45) : shade(color, -0.5)) : 'none';
-  const edge = signature ? GOLD : stroke;
-  const sw = signature ? 1.1 : 0.9;
+  const pale = ['#ffffff', '#ffc400', '#ff8ac4'].includes(color.toLowerCase());
+  const edge = outline ? INK : 'none';
+  const sw = signature ? KEYLINE_BOLD : KEYLINE;
   const t = (extra: number): Transition => ({ duration, delay: delay + extra, ease: [0.22, 1, 0.36, 1] });
   const init = animateOpen ? undefined : false;
 
@@ -66,7 +68,8 @@ export function PoppyHead({
         <path d={d} fill={fill} stroke={edge} strokeWidth={sw} strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
         {front && (
           <>
-            <path d={BLOTCH} fill={pale ? shade(color, -0.3) : INK} opacity={pale ? 0.35 : 0.42} />
+            <path d={BLOTCH} fill={pale ? shade(color, -0.35) : INK} opacity={pale ? 0.6 : 0.85} />
+            <path d={SHINE} fill="none" stroke="#fff" strokeWidth={1.6} strokeLinecap="round" opacity={pale ? 0 : 0.85} vectorEffect="non-scaling-stroke" />
             {VEINS.map((vd) => (
               <path key={vd} d={vd} fill="none" stroke={deep} strokeWidth={0.7} opacity={0.35} strokeLinecap="round" vectorEffect="non-scaling-stroke" />
             ))}
@@ -95,15 +98,15 @@ export function PoppyHead({
             const y = -Math.sin(a) * (signature ? 7 : 6) - 1;
             return (
               <g key={i}>
-                <line x1={x * 0.55} y1={y * 0.4} x2={x} y2={y} stroke={INK} strokeWidth={0.7} opacity={0.75} vectorEffect="non-scaling-stroke" />
+                <line x1={x * 0.55} y1={y * 0.4} x2={x} y2={y} stroke={INK} strokeWidth={0.9} vectorEffect="non-scaling-stroke" />
                 <circle cx={x} cy={y} r={signature ? 1.6 : 1.3} fill={signature ? GOLD : INK} />
               </g>
             );
           })}
-          <ellipse rx={signature ? 9 : 8} ry={signature ? 5.2 : 4.6} fill={signature ? '#3A3A1E' : '#35321C'} />
-          <ellipse rx={signature ? 6 : 5} ry={2.2} cy={-1.2} fill={signature ? GOLD : '#8A8A4A'} opacity={0.85} />
+          <ellipse rx={signature ? 9 : 8} ry={signature ? 5.2 : 4.6} fill={INK} />
+          <ellipse rx={signature ? 6 : 5} ry={2.2} cy={-1.2} fill={signature ? GOLD : '#7EE05A'} />
           {Array.from({ length: 6 }, (_, i) => (
-            <line key={i} x1={0} y1={-1.2} x2={Math.cos((i / 6) * Math.PI * 2) * 5} y2={-1.2 + Math.sin((i / 6) * Math.PI * 2) * 2} stroke="#2E2A14" strokeWidth={0.6} vectorEffect="non-scaling-stroke" />
+            <line key={i} x1={0} y1={-1.2} x2={Math.cos((i / 6) * Math.PI * 2) * 5} y2={-1.2 + Math.sin((i / 6) * Math.PI * 2) * 2} stroke={INK} strokeWidth={0.8} vectorEffect="non-scaling-stroke" />
           ))}
         </g>
       </motion.g>

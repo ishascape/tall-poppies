@@ -80,7 +80,7 @@ export function PlantSheet() {
               rows={4}
               placeholder={placeholder}
               aria-describedby={hintId}
-              className="display block w-full resize-none rounded-2xl border-0 bg-ivory px-4 py-3.5 text-[1.3rem] leading-snug text-ink ring-1 ring-line placeholder:text-ink-faint/70 placeholder:italic focus:outline-none focus:ring-2 focus:ring-poppy/70"
+              className="block w-full resize-none rounded-2xl font-semibold border-[2.5px] border-ink bg-paper px-4 py-3.5 text-[1.3rem] leading-snug text-ink shadow-[3px_3px_0_var(--color-ink)] placeholder:text-ink-faint placeholder:italic focus:bg-ivory/40 focus:outline-none focus:ring-4 focus:ring-pink"
             />
             <p id={hintId} className="mt-1.5 flex justify-between text-xs text-ink-faint">
               <span>Write it the way you'd tell a friend.</span>
@@ -89,12 +89,11 @@ export function PlantSheet() {
           </div>
 
           <div>
-            <p className="eyebrow mb-2.5">Category · optional</p>
             <CategoryPicker value={category} onChange={setCategory} />
           </div>
 
           <div className="flex items-center justify-between gap-4">
-            <label htmlFor={dateId} className="eyebrow">
+            <label htmlFor={dateId} className="display text-sm text-ink">
               When
             </label>
             <input
@@ -103,7 +102,7 @@ export function PlantSheet() {
               value={date}
               max={today}
               onChange={(e) => setDate(e.target.value)}
-              className="h-10 rounded-full bg-ivory px-4 text-sm font-medium text-ink ring-1 ring-line focus:outline-none focus:ring-2 focus:ring-poppy/70"
+              className="h-10 rounded-full border-[2.5px] border-ink bg-paper px-4 text-sm font-semibold text-ink shadow-[2px_2px_0_var(--color-ink)] focus:outline-none focus:ring-4 focus:ring-pink"
             />
           </div>
 

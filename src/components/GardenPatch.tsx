@@ -78,7 +78,7 @@ const FlowerButton = memo(function FlowerButton({
     bottom: `${y}%`,
     width: `calc(min(23cqw, 19cqh) * ${scale})`,
     zIndex: 10 + row * 100 + z,
-    filter: depth > 0 ? `saturate(${1 - depth * 0.1}) brightness(${1 + depth * 0.03})` : undefined,
+    filter: depth > 0 ? `brightness(${1 + depth * 0.04})` : undefined,
   };
   const label = `${formatDay(win.date)}: ${win.text}`;
 
@@ -107,7 +107,7 @@ const FlowerButton = memo(function FlowerButton({
     >
       {highlighted && (
         <motion.span
-          className="absolute bottom-[-4%] left-1/2 h-[12%] w-[90%] -translate-x-1/2 rounded-[50%] bg-gold/50 blur-[6px]"
+          className="absolute bottom-[-4%] left-1/2 h-[12%] w-[90%] -translate-x-1/2 rounded-[50%] bg-gold blur-[4px]"
           initial={{ opacity: 0 }}
           animate={{ opacity: [0.3, 1, 0.3] }}
           transition={{ duration: 2.2, repeat: Infinity }}
@@ -116,7 +116,7 @@ const FlowerButton = memo(function FlowerButton({
       )}
       <span className="block transition-transform duration-300 ease-out group-hover:-translate-y-1 group-focus-visible:-translate-y-1">{flowerArt}</span>
       <span
-        className="pointer-events-none absolute bottom-full left-1/2 mb-1 hidden w-max max-w-[12rem] -translate-x-1/2 truncate rounded-full bg-ink px-3 py-1 text-xs font-medium text-paper opacity-0 shadow transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100 md:block"
+        className="pointer-events-none absolute bottom-full left-1/2 mb-1 hidden w-max max-w-[12rem] -translate-x-1/2 truncate rounded-full border-2 border-ink bg-paper px-3 py-1 text-xs font-bold text-ink opacity-0 shadow-[2px_2px_0_var(--color-ink)] transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100 md:block"
         aria-hidden="true"
       >
         {win.text}

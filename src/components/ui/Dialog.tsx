@@ -70,7 +70,7 @@ export function Dialog({ open, onClose, title, hideTitle, description, children,
       {open && (
         <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center" onKeyDown={onKeyDown}>
           <motion.div
-            className="absolute inset-0 bg-[#2a241e]/35 backdrop-blur-[2px]"
+            className="halftone-pink absolute inset-0 bg-ink-soft/85"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -83,29 +83,29 @@ export function Dialog({ open, onClose, title, hideTitle, description, children,
             aria-modal="true"
             aria-labelledby={titleId}
             aria-describedby={description ? descId : undefined}
-            className={`relative w-full bg-paper shadow-[0_-10px_40px_-20px_rgba(42,36,30,0.5)] ${
+            className={`relative w-full border-[3px] border-b-0 border-ink bg-paper shadow-[6px_6px_0_var(--color-ink)] sm:border-b-[3px] ${
               isSheet
                 ? 'max-h-[92dvh] overflow-y-auto rounded-t-[28px] px-5 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-3 sm:max-w-lg sm:rounded-[28px] sm:px-8 sm:pb-8 sm:pt-6'
-                : 'mx-4 mb-6 max-w-sm rounded-[24px] p-6 sm:mb-0'
+                : 'mx-4 mb-6 max-w-sm rounded-[24px] border-b-[3px] p-6 sm:mb-0'
             }`}
             initial={reduced ? { opacity: 0 } : isSheet ? { y: '100%' } : { opacity: 0, scale: 0.96, y: 8 }}
             animate={reduced ? { opacity: 1 } : isSheet ? { y: 0 } : { opacity: 1, scale: 1, y: 0 }}
             exit={reduced ? { opacity: 0 } : isSheet ? { y: '100%' } : { opacity: 0, scale: 0.97 }}
             transition={{ type: 'spring', stiffness: 320, damping: 34 }}
           >
-            {isSheet && <div className="mx-auto mb-3 h-1 w-10 rounded-full bg-line sm:hidden" aria-hidden="true" />}
+            {isSheet && <div className="mx-auto mb-3 h-1.5 w-12 rounded-full bg-ink sm:hidden" aria-hidden="true" />}
             <div className="flex items-start justify-between gap-4">
-              <h2 id={titleId} className={hideTitle ? 'sr-only' : 'display text-2xl leading-tight text-ink sm:text-[1.7rem]'}>
+              <h2 id={titleId} className={hideTitle ? 'sr-only' : 'display text-xl leading-tight text-ink sm:text-2xl'}>
                 {title}
               </h2>
               {role === 'dialog' && (
                 <button
                   type="button"
                   onClick={onClose}
-                  className="-mr-2 -mt-1 ml-auto grid h-10 w-10 shrink-0 place-items-center rounded-full text-ink-soft transition-colors hover:bg-ink/5 hover:text-ink"
+                  className="-mr-2 -mt-1 ml-auto grid h-10 w-10 shrink-0 place-items-center rounded-full text-ink-soft transition-colors hover:bg-pink/20 hover:text-ink"
                   aria-label="Close"
                 >
-                  <X size={20} strokeWidth={1.8} />
+                  <X size={20} strokeWidth={2.4} />
                 </button>
               )}
             </div>

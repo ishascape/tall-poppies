@@ -62,15 +62,14 @@ export function Garden() {
     <div className="mx-auto w-full max-w-6xl px-4 pb-32 pt-6 sm:px-8 md:pb-16">
       <header className="mb-5 flex flex-wrap items-end justify-between gap-3 px-1">
         <div>
-          <p className="eyebrow">Your garden</p>
-          <h1 className="display mt-1 text-[2.6rem] leading-none text-ink sm:text-6xl">
+          <h1 className="display pop-headline text-[2rem] leading-[1.05] text-ink sm:text-5xl">
             {wins.length === 0 ? 'Room to grow' : wins.length === 1 ? 'One flower, blooming' : `${wins.length} flowers, blooming`}
           </h1>
         </div>
-        {wins.length > 0 && <p className="max-w-xs text-sm leading-relaxed text-ink-soft">Every flower is something you did. Tap one to remember it.</p>}
+        {wins.length > 0 && <p className="max-w-xs text-sm font-medium leading-relaxed text-ink-soft">Every flower is something you did. Tap one to remember it.</p>}
       </header>
 
-      <div className="relative overflow-hidden rounded-[28px] ring-1 ring-line shadow-[0_30px_60px_-40px_rgba(62,106,58,0.6)]">
+      <div className="relative overflow-hidden rounded-[28px] border-[3px] border-ink shadow-[6px_6px_0_var(--color-ink)]">
         <AnimatePresence initial={false} custom={direction} mode="popLayout">
           <motion.div
             key={patch?.index ?? 'empty'}
@@ -92,7 +91,7 @@ export function Garden() {
                   <svg viewBox="-20 -20 40 40" className="mb-3 h-14 w-14" aria-hidden="true">
                     <Seed size={1.2} />
                   </svg>
-                  <p className="display max-w-[16rem] text-xl leading-snug text-ink">Your garden is waiting for its first flower.</p>
+                  <p className="display max-w-[16rem] text-lg leading-snug text-ink">Your garden is waiting for its first flower.</p>
                   <Button className="mt-4" icon={<Sprout size={17} />} onClick={openPlant}>
                     Plant a win
                   </Button>
@@ -109,11 +108,11 @@ export function Garden() {
             <span className="hidden sm:inline">Older</span>
           </Button>
           <div className="min-w-0 text-center">
-            <p className="display text-lg leading-tight text-ink">
+            <p className="display text-base leading-tight text-ink">
               Patch {numeral(index)} <span className="text-ink-faint">of {numeral(last)}</span>
             </p>
             {patch && (
-              <p className="text-xs text-ink-soft">
+              <p className="text-xs font-medium text-ink-soft">
                 {formatDay(patch.from)} – {formatDay(patch.to)} · {patch.flowers.length} of {PATCH_CAPACITY}
               </p>
             )}
@@ -128,7 +127,7 @@ export function Garden() {
                   }}
                   aria-label={`Patch ${p.index + 1}, ${formatDay(p.from)} to ${formatDay(p.to)}`}
                   aria-current={p.index === index ? 'true' : undefined}
-                  className={`h-2.5 rounded-full transition-all ${p.index === index ? 'w-6 bg-poppy' : 'w-2.5 bg-ink/20 hover:bg-ink/40'}`}
+                  className={`h-3 rounded-full border-2 border-ink transition-all ${p.index === index ? 'w-7 bg-poppy' : 'w-3 bg-paper hover:bg-pink'}`}
                 />
               ))}
             </div>
@@ -141,8 +140,8 @@ export function Garden() {
       )}
 
       {wins.length > 0 && (
-        <p className="mt-6 text-center text-sm text-ink-soft">
-          Looking for something? <a href="#/journal" className="font-semibold text-poppy-deep underline decoration-poppy/30 underline-offset-4 hover:decoration-poppy">Browse your journal</a>
+        <p className="mt-6 text-center text-sm font-medium text-ink-soft">
+          Looking for something? <a href="#/journal" className="font-bold text-poppy-deep underline decoration-2 underline-offset-4 hover:text-ink">Browse your journal</a>
         </p>
       )}
 

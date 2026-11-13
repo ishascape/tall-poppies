@@ -53,9 +53,8 @@ export function Journal() {
   return (
     <div className="mx-auto w-full max-w-2xl px-5 pb-32 pt-6 sm:px-8 md:pb-20">
       <header className="mb-8">
-        <p className="eyebrow">Journal</p>
-        <h1 className="display mt-1 text-[2.6rem] leading-none text-ink sm:text-6xl">Things you did</h1>
-        <p className="mt-3 max-w-md text-[0.98rem] leading-relaxed text-ink-soft">Every win you've planted, newest first. Yours to keep, edit, or let go.</p>
+        <h1 className="display pop-headline text-[2rem] leading-[1.05] text-ink sm:text-5xl">Things you did</h1>
+        <p className="mt-3 max-w-md text-[0.98rem] font-medium leading-relaxed text-ink-soft">Every win you've planted, newest first. Yours to keep, edit, or let go.</p>
       </header>
 
       {wins.length > 0 && (
@@ -72,8 +71,8 @@ export function Journal() {
       )}
 
       {wins.length === 0 ? (
-        <div className="rounded-[24px] border border-dashed border-line px-6 py-14 text-center">
-          <p className="display text-2xl text-ink">Nothing here yet, and that's okay.</p>
+        <div className="rounded-[24px] border-[3px] border-dashed border-ink bg-paper px-6 py-14 text-center">
+          <p className="display text-xl text-ink">Nothing here yet, and that's okay.</p>
           <p className="mx-auto mt-2 max-w-xs text-sm leading-relaxed text-ink-soft">When something goes well, however small, plant it. It'll be waiting here for you.</p>
           <Button className="mt-6" icon={<Sprout size={17} />} onClick={openPlant}>
             Plant a win
@@ -90,7 +89,7 @@ export function Journal() {
         <div className="flex flex-col gap-10">
           {groups.map(([month, items]) => (
             <section key={month} aria-labelledby={`m-${month}`}>
-              <h2 id={`m-${month}`} className="display mb-1 border-b border-line pb-2 text-xl italic text-ink-soft">
+              <h2 id={`m-${month}`} className="display mb-3 inline-block rounded-full border-[2.5px] border-ink bg-ink-soft px-4 py-1 text-base text-paper shadow-[3px_3px_0_var(--color-ink)]">
                 {formatMonth(`${month}-01`)}
               </h2>
               <ol>
@@ -102,12 +101,12 @@ export function Journal() {
                       initial={{ opacity: 0, y: 8 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, transition: { duration: 0.25 } }}
-                      className="border-b border-line/70"
+                      className="mb-4"
                     >
                       <article
                         id={`win-${w.id}`}
                         tabIndex={-1}
-                        className={`group grid grid-cols-[2.75rem_1fr] gap-x-4 rounded-xl py-5 outline-none transition-colors focus-visible:bg-paper ${focusId === w.id ? 'bg-paper' : ''}`}
+                        className={`group grid grid-cols-[2.75rem_1fr] gap-x-4 rounded-[20px] border-[2.5px] border-ink px-4 py-4 shadow-[4px_4px_0_var(--color-ink)] outline-none transition-colors focus-visible:bg-mint sm:px-5 ${focusId === w.id ? 'bg-mint' : 'bg-paper'}`}
                         aria-label={`${formatDay(w.date)}: ${w.text}`}
                       >
                         <GardenFlower variant={w.flowerVariant} headOnly className="mt-0.5 h-11 w-11" />
@@ -118,7 +117,7 @@ export function Journal() {
                             </time>
                             <CategoryTag category={w.category} />
                           </div>
-                          <p className="display mt-1 text-[1.3rem] leading-snug text-ink [overflow-wrap:anywhere]">{w.text}</p>
+                          <p className="mt-1 text-[1.2rem] font-semibold leading-snug text-ink [overflow-wrap:anywhere]">{w.text}</p>
                           <div className="mt-3 flex flex-wrap gap-1 text-ink-soft">
                             <IconAction label="See its flower" onClick={() => navigate(`/garden?win=${w.id}`)} icon={<Flower2 size={15} />} />
                             <IconAction label="Edit" onClick={() => openEdit(w)} icon={<Pencil size={15} />} />
@@ -137,7 +136,7 @@ export function Journal() {
 
       {wins.length > 0 && (
         <footer className="mt-14 flex flex-col items-center gap-2 text-center">
-          <p className="text-sm text-ink-soft">Your wins live only on this device.</p>
+          <p className="text-sm font-medium text-ink-soft">Your wins live only on this device.</p>
           <Button variant="ghost" size="sm" icon={<Download size={15} />} onClick={exportWins}>
             Download a copy
           </Button>
@@ -168,11 +167,11 @@ function FilterChip({ active, onClick, children, tint }: { active: boolean; onCl
       type="button"
       aria-pressed={active}
       onClick={onClick}
-      className={`inline-flex h-9 shrink-0 items-center gap-2 rounded-full px-4 text-sm font-medium transition-colors ${
-        active ? 'bg-ink text-paper' : 'bg-paper text-ink-soft ring-1 ring-line hover:text-ink'
+      className={`inline-flex h-9 shrink-0 items-center gap-2 rounded-full px-4 text-sm font-semibold transition-colors ${
+        active ? 'border-2 border-ink bg-ink text-paper shadow-[2px_2px_0_var(--color-pink)]' : 'border-2 border-ink bg-paper text-ink hover:bg-mint'
       }`}
     >
-      {tint && <span className="h-2 w-2 rounded-full" style={{ background: tint }} aria-hidden="true" />}
+      {tint && <span className="h-2.5 w-2.5 rounded-full ring-[1.5px] ring-ink" style={{ background: tint }} aria-hidden="true" />}
       {children}
     </button>
   );
@@ -183,7 +182,7 @@ function IconAction({ label, onClick, icon }: { label: string; onClick: () => vo
     <button
       type="button"
       onClick={onClick}
-      className="inline-flex h-8 items-center gap-1.5 rounded-full px-2.5 text-[0.8rem] font-medium transition-colors hover:bg-ink/5 hover:text-ink"
+      className="inline-flex h-8 items-center gap-1.5 rounded-full px-2.5 text-[0.8rem] font-semibold transition-colors hover:bg-pink/25 hover:text-ink"
     >
       {icon}
       {label}

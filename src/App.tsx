@@ -38,7 +38,6 @@ function Shell() {
       <a href="#main" className="sr-only z-[80] rounded-full bg-ink px-4 py-2 text-paper focus:not-sr-only focus:fixed focus:left-4 focus:top-4">
         Skip to content
       </a>
-      <div className="paper-grain" aria-hidden="true" />
       {showWelcome ? (
         <Welcome />
       ) : (

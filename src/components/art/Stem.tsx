@@ -45,8 +45,7 @@ export function Stem({ curve, width = 4, color = GREEN, animateIn = false, delay
           transition={transition}
           fill="none"
           stroke={INK}
-          strokeOpacity={0.5}
-          strokeWidth={width + 1.6}
+          strokeWidth={width + 2.4}
           strokeLinecap="round"
         />
       )}

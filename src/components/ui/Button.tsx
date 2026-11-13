@@ -6,10 +6,11 @@ type Variant = 'primary' | 'secondary' | 'ghost' | 'danger';
 
 const styles: Record<Variant, string> = {
   primary:
-    'bg-poppy text-paper shadow-[0_1px_0_rgba(255,255,255,0.25)_inset,0_6px_18px_-8px_rgba(143,31,28,0.7)] hover:bg-poppy-deep disabled:bg-ink-faint/40 disabled:shadow-none',
-  secondary: 'bg-paper text-ink ring-1 ring-line hover:ring-ink/30',
-  ghost: 'text-ink-soft hover:text-ink hover:bg-ink/5',
-  danger: 'bg-poppy-deep text-paper hover:bg-[#741815]',
+    'bg-poppy text-paper border-[2.5px] border-ink shadow-[4px_4px_0_var(--color-ink)] hover:bg-poppy-deep active:shadow-[1px_1px_0_var(--color-ink)] disabled:border-ink/40 disabled:bg-blush disabled:text-ink disabled:shadow-none',
+  secondary:
+    'bg-paper text-ink border-[2.5px] border-ink shadow-[3px_3px_0_var(--color-ink)] hover:bg-mint active:shadow-[1px_1px_0_var(--color-ink)] disabled:shadow-none disabled:opacity-50',
+  ghost: 'text-ink-soft hover:text-ink hover:bg-pink/20',
+  danger: 'bg-poppy-deep text-paper border-[2.5px] border-ink shadow-[3px_3px_0_var(--color-ink)] hover:bg-ink',
 };
 
 export type ButtonProps = Omit<HTMLMotionProps<'button'>, 'children'> & {
@@ -29,9 +30,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       ref={ref}
       type={type as ButtonHTMLAttributes<HTMLButtonElement>['type']}
       whileTap={rest.disabled ? undefined : { scale: 0.96 }}
-      whileHover={rest.disabled ? undefined : { y: -1 }}
+      whileHover={rest.disabled ? undefined : { y: -2 }}
       transition={spring.press}
-      className={`inline-flex select-none items-center justify-center rounded-full font-semibold tracking-[0.01em] transition-colors disabled:cursor-not-allowed ${sizes[size]} ${styles[variant]} ${className}`}
+      className={`inline-flex select-none items-center justify-center rounded-full font-display font-normal tracking-[0.02em] transition-colors disabled:cursor-not-allowed ${sizes[size]} ${styles[variant]} ${className}`}
       {...rest}
     >
       {icon}

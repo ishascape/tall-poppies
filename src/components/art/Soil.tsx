@@ -1,4 +1,4 @@
-import { INK, SOIL, SOIL_DEEP, GREEN, SAGE } from './palette';
+import { INK, SOIL, SOIL_DEEP, GREEN, SAGE, MINT } from './palette';
 
 /** An earthen mound with pebbles and grass tufts, centred on (cx, cy) at its top surface. */
 export function Soil({ cx = 0, cy = 0, width = 180, tufts = true }: { cx?: number; cy?: number; width?: number; tufts?: boolean }) {
@@ -9,10 +9,10 @@ export function Soil({ cx = 0, cy = 0, width = 180, tufts = true }: { cx?: numbe
         d={`M${-w},18 C${-w * 0.7},-2 ${-w * 0.3},-8 0,-8 C${w * 0.3},-8 ${w * 0.7},-2 ${w},18 Z`}
         fill={SOIL}
         stroke={INK}
-        strokeOpacity={0.5}
-        strokeWidth={1}
+        strokeWidth={2}
+        strokeLinejoin="round"
       />
-      <path d={`M${-w * 0.8},14 C${-w * 0.5},4 ${w * 0.4},2 ${w * 0.78},13`} fill="none" stroke={SOIL_DEEP} strokeWidth={1} opacity={0.5} />
+      <path d={`M${-w * 0.8},14 C${-w * 0.5},4 ${w * 0.4},2 ${w * 0.78},13`} fill="none" stroke={SOIL_DEEP} strokeWidth={1.4} opacity={0.8} />
       {[
         [-0.5, 6, 2.2],
         [-0.15, 9, 1.4],
@@ -20,7 +20,7 @@ export function Soil({ cx = 0, cy = 0, width = 180, tufts = true }: { cx?: numbe
         [0.6, 11, 1.2],
         [-0.7, 12, 1.5],
       ].map(([fx, y, r], i) => (
-        <circle key={i} cx={fx * w} cy={y} r={r} fill={SOIL_DEEP} opacity={0.55} />
+        <circle key={i} cx={fx * w} cy={y} r={r} fill={MINT} opacity={0.9} />
       ))}
       {tufts &&
         [-0.85, -0.62, 0.66, 0.9].map((fx, i) => (

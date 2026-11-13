@@ -26,9 +26,9 @@ export function TopBar() {
               key={item.path}
               href={`#${item.path}`}
               aria-current={active ? 'page' : undefined}
-              className={`relative rounded-full px-4 py-2 text-sm font-medium transition-colors ${active ? 'text-ink' : 'text-ink-soft hover:text-ink'}`}
+              className={`relative rounded-full px-4 py-2 font-display text-[0.8rem] transition-colors ${active ? 'text-paper' : 'text-ink hover:text-poppy-deep'}`}
             >
-              {active && <motion.span layoutId="nav-pill" className="absolute inset-0 rounded-full bg-ink/[0.06]" transition={{ type: 'spring', stiffness: 400, damping: 34 }} />}
+              {active && <motion.span layoutId="nav-pill" className="absolute inset-0 rounded-full border-2 border-ink bg-ink-soft shadow-[2px_2px_0_var(--color-ink)]" transition={{ type: 'spring', stiffness: 400, damping: 34 }} />}
               <span className="relative">{item.label}</span>
             </a>
           );
@@ -37,7 +37,7 @@ export function TopBar() {
           type="button"
           onClick={openPlant}
           whileTap={{ scale: 0.95 }}
-          className="ml-3 inline-flex h-10 items-center gap-2 rounded-full bg-poppy px-4 text-sm font-semibold text-paper hover:bg-poppy-deep"
+          className="ml-3 inline-flex h-10 items-center gap-2 rounded-full border-[2.5px] border-ink bg-poppy px-4 font-display text-[0.8rem] text-paper shadow-[3px_3px_0_var(--color-ink)] hover:bg-poppy-deep"
         >
           <Plus size={16} strokeWidth={2.4} />
           Plant a win
@@ -58,7 +58,7 @@ export function BottomNav() {
         key={item.path}
         href={`#${item.path}`}
         aria-current={active ? 'page' : undefined}
-        className={`flex h-16 flex-1 flex-col items-center justify-end gap-1 rounded-xl pb-2.5 text-[0.7rem] font-semibold tracking-wide transition-colors ${active ? 'text-poppy' : 'text-ink-soft'}`}
+        className={`flex h-16 flex-1 flex-col items-center justify-end gap-1 rounded-xl pb-2.5 text-[0.7rem] font-bold tracking-wide transition-colors ${active ? 'text-poppy-deep' : 'text-ink-soft'}`}
       >
         <Icon size={22} strokeWidth={active ? 2 : 1.6} aria-hidden="true" />
         {item.label}
@@ -68,7 +68,7 @@ export function BottomNav() {
   return (
     <nav
       aria-label="Main"
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-line/80 bg-paper/90 pb-[env(safe-area-inset-bottom)] backdrop-blur-md md:hidden"
+      className="fixed inset-x-0 bottom-0 z-40 border-t-[3px] border-ink bg-paper pb-[env(safe-area-inset-bottom)] md:hidden"
     >
       <div className="mx-auto flex max-w-md items-center px-3">
         {ITEMS.map(link)}
@@ -77,9 +77,9 @@ export function BottomNav() {
             type="button"
             onClick={openPlant}
             whileTap={{ scale: 0.92 }}
-            className="flex flex-col items-center gap-1 text-[0.7rem] font-semibold tracking-wide text-poppy"
+            className="flex flex-col items-center gap-1 text-[0.7rem] font-bold tracking-wide text-poppy-deep"
           >
-            <span className="-mb-0.5 grid h-8 w-8 place-items-center rounded-full bg-poppy text-paper shadow-[0_6px_14px_-6px_rgba(143,31,28,0.8)]">
+            <span className="-mb-0.5 grid h-8 w-8 place-items-center rounded-full border-2 border-ink bg-poppy text-paper shadow-[2px_2px_0_var(--color-ink)]">
               <Plus size={19} strokeWidth={2.4} aria-hidden="true" />
             </span>
             Plant

@@ -35,7 +35,7 @@ export function Home() {
   return (
     <div className="mx-auto grid w-full max-w-6xl gap-x-12 px-5 pb-32 pt-2 sm:px-8 md:pb-16 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:pt-6">
       <motion.p
-        className="display text-center text-[1.05rem] italic text-ink-soft lg:hidden"
+        className="display text-center text-base text-ink-soft lg:hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.1 }}
@@ -58,13 +58,9 @@ export function Home() {
       </div>
 
       <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-        <p className="display hidden text-xl italic text-ink-soft lg:block">{greeting()}.</p>
-        <p className="eyebrow mt-1 lg:mt-4">
-          {growth.stage.name}
-          {displayCount > 0 && ` · ${displayCount} ${displayCount === 1 ? 'win' : 'wins'}`}
-        </p>
-        <h1 className="display mt-2 max-w-md text-[2.15rem] leading-[1.05] text-ink sm:text-5xl lg:text-[3.6rem]">{growth.stage.line}</h1>
-        <p className="mt-3 max-w-sm text-[1rem] leading-relaxed text-ink-soft">{encouragement}</p>
+        <p className="display hidden text-lg text-ink-soft lg:block">{greeting()}.</p>
+        <h1 className="display pop-headline mt-3 max-w-md text-[1.8rem] leading-[1.1] text-ink sm:text-[2.5rem] lg:text-[2.8rem]">{growth.stage.line}</h1>
+        <p className="mt-3 max-w-sm text-[1rem] font-medium leading-relaxed text-ink-soft">{encouragement}</p>
         <Button size="lg" className="mt-6" icon={<Sprout size={19} />} onClick={openPlant}>
           Plant a win
         </Button>
@@ -79,14 +75,14 @@ export function Home() {
               <h2 id="preview-title" className="display text-xl text-ink">
                 Your garden
               </h2>
-              <a href="#/garden" className="inline-flex items-center gap-1 text-sm font-semibold text-poppy-deep hover:text-poppy">
+              <a href="#/garden" className="inline-flex items-center gap-1 text-sm font-bold text-poppy-deep underline decoration-2 underline-offset-4 hover:text-ink">
                 Visit <ArrowRight size={15} />
               </a>
             </div>
             <button
               type="button"
               onClick={() => navigate('/garden')}
-              className="block w-full overflow-hidden rounded-[24px] ring-1 ring-line transition-shadow hover:shadow-[0_20px_40px_-28px_rgba(62,106,58,0.7)]"
+              className="block w-full overflow-hidden rounded-[24px] border-[3px] border-ink shadow-[5px_5px_0_var(--color-ink)] transition-shadow hover:shadow-[7px_7px_0_var(--color-pink)]"
               aria-label={`Visit your garden of ${wins.length} ${wins.length === 1 ? 'flower' : 'flowers'}`}
             >
               <GardenPatch patch={preview} preview className="h-44 w-full sm:h-52" />
@@ -125,10 +121,10 @@ function JourneyDialog({ open, onClose }: { open: boolean; onClose: () => void }
             const current = i === growth.stageIndex;
             return (
               <li key={s.id} className="flex flex-col items-center gap-1 text-center" aria-current={current ? 'step' : undefined}>
-                <div className={`w-full rounded-2xl ${current ? 'bg-ivory ring-1 ring-gold/50' : ''} ${reached ? '' : 'opacity-35 grayscale'}`}>
+                <div className={`w-full rounded-2xl ${current ? 'border-2 border-ink bg-ivory' : 'border-2 border-transparent'} ${reached ? '' : 'opacity-35 grayscale'}`}>
                   <SignaturePoppy count={s.min} ambient={false} className="mx-auto h-20 w-full" title={s.name} />
                 </div>
-                <span className={`text-[0.68rem] font-semibold leading-tight ${current ? 'text-poppy-deep' : 'text-ink-faint'}`}>{s.name}</span>
+                <span className={`text-[0.68rem] font-semibold leading-tight ${current ? 'text-poppy-deep' : 'text-ink-soft'}`}>{s.name}</span>
               </li>
             );
           })}
