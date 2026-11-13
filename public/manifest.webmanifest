@@ -4,7 +4,7 @@
   "description": "Let yourself grow. A little garden for all the things you've done.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#F6EFE2",
-  "theme_color": "#F6EFE2",
+  "background_color": "#FFD93B",
+  "theme_color": "#FFD93B",
   "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
 }
