@@ -4,6 +4,7 @@ import { createWin, editWin, removeWin, sortWins, upsertWin } from '../lib/wins'
 import { LocalWinRepository, type WinRepository } from '../lib/repository';
 import { STORAGE_KEY } from '../lib/storage';
 import { getStage } from '../lib/growth';
+import { randomSampleDrafts } from '../lib/samples';
 
 export type Celebration = {
   win: Win;
@@ -30,6 +31,8 @@ type GardenContextValue = {
   plantWin: (draft: WinDraft) => Win;
   updateWin: (id: string, draft: WinDraft) => void;
   deleteWin: (id: string) => void;
+  /** Quietly plant a batch of random sample wins (no celebration). */
+  plantSamples: (count?: number) => void;
   finishCelebration: () => void;
   openPlant: () => void;
   openEdit: (win: Win) => void;
@@ -133,6 +136,22 @@ export function GardenProvider({ children, repository }: { children: ReactNode; 
     [wins, pushToast],
   );
 
+  const plantSamples = useCallback(
+    (count = 10) => {
+      const now = Date.now();
+      // Stagger createdAt by a millisecond so same-day samples keep a stable order.
+      const batch = randomSampleDrafts(count).map((d, i) => createWin(d, new Date(now + i)));
+      const ids = new Set(batch.map((w) => w.id));
+      setWins((w) => sortWins([...w, ...batch]));
+      setPreferences((p) => (p.welcomed ? p : { ...p, welcomed: true }));
+      pushToast(`${batch.length} sample wins planted in your garden.`, {
+        label: 'Undo',
+        run: () => setWins((w) => w.filter((x) => !ids.has(x.id))),
+      });
+    },
+    [pushToast],
+  );
+
   const finishCelebration = useCallback(() => {
     setCelebration((c) => {
       if (c) {
@@ -156,6 +175,7 @@ export function GardenProvider({ children, repository }: { children: ReactNode; 
     plantWin,
     updateWin,
     deleteWin,
+    plantSamples,
     finishCelebration,
     openPlant: useCallback(() => setSheet({ mode: 'plant' }), []),
     openEdit: useCallback((win: Win) => setSheet({ mode: 'edit', win }), []),

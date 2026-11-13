@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Sprout } from 'lucide-react';
+import { Shuffle, Sprout } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { Wordmark } from '../components/art/Wordmark';
 import { SignaturePoppy } from '../components/art/SignaturePoppy';
@@ -8,7 +8,7 @@ import { useGarden } from '../state/GardenProvider';
 import { CORAL, POPPY, BLUSH } from '../components/art/palette';
 
 export function Welcome() {
-  const { openPlant } = useGarden();
+  const { openPlant, plantSamples } = useGarden();
   const rise = (delay: number) => ({
     initial: { opacity: 0, y: 14 },
     animate: { opacity: 1, y: 0 },
@@ -34,6 +34,9 @@ export function Welcome() {
         <motion.div {...rise(0.5)} className="mt-9 flex flex-col items-center gap-3">
           <Button size="lg" icon={<Sprout size={19} />} onClick={openPlant}>
             Plant your first win
+          </Button>
+          <Button variant="ghost" size="sm" icon={<Shuffle size={15} />} onClick={() => plantSamples(10)}>
+            Or start with 10 sample wins
           </Button>
           <p className="text-xs text-ink-faint">No account needed. Your wins stay on this device.</p>
         </motion.div>
